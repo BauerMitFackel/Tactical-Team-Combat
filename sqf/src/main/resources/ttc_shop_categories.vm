@@ -1,0 +1,21 @@
+/////////////////////////////////////////////
+//// Auto generated code. DO NOT MODIFY! ////
+/////////////////////////////////////////////
+
+
+TTC_SHOP_CATEGORY_id			= 0;
+TTC_SHOP_CATEGORY_name			= 1;
+TTC_SHOP_CATEGORY_icon			= 2;
+TTC_SHOP_CATEGORY_articles		= 3;
+
+
+/*
+	Array containing all categories
+	Must be sorted. The order is used in the category list
+*/
+TTC_SHOP_categories = [
+#foreach( $category in $categories )
+  [$category.id, "$category.name", "$category.icon", TTC_SHOP_$category.varName]#if( $foreach.hasNext ),#end
+
+#end
+];
