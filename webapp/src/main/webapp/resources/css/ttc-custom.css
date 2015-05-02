@@ -1,0 +1,47 @@
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.label-success-inverse {
+    background-color: #ffffff;
+    color: #2ecc71;
+}
+
+body {
+	padding-top: 60px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.jumbotron {
+    background: url(../img/jumbotron-bg-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 500px;
+}
+
+.jumbotron h1 {
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 10px #000000;
+}
+
+.jumbotron h3 {
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 5px #000000;
+}
+
+.jumbotron p {
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0px 0px 5px #000000;
+}
