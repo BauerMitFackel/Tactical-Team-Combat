@@ -1,6 +1,9 @@
 package eu.sos.ttc.core.domain;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -29,44 +34,19 @@ public class Article {
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 
-	@Column(name = "arma_class_name", unique = true, nullable = false)
-	private String armaClassName;
-
 	@Column(name = "price", unique = false, nullable = false)
 	private int price;
 
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name="group_id")
-	private Group group;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-	@Column(name = "factory_function", unique = true, nullable = false)
-	private String factoryFunction;
-
-
-	/**
-	 * Creates a new article instance using the specified name.
-	 * @param name The name of the category
-	 */
-	public static Article create (String name, String armaClassName) {
-		return Article.create(name, armaClassName, -1);
-	}
-
-
-	/**
-	 * Creates a new article instance using the specified name and icon.
-	 * @param name The name of the category
-	 * @param armaClassName The arma class name of the article
-	 * @param price The price of the article
-	 */
-	public static Article create (String name, String armaClassName, int price) {
-
-		Article article = new Article();
-		article.setName(name);
-		article.setArmaClassName(armaClassName);
-		article.setPrice(price);
-
-		return article;
-	}
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "article_side",
+			joinColumns = {@JoinColumn(name = "article_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "side_id", referencedColumnName = "id")})
+	private List<Side> sides = new ArrayList<>();
 
 
 	/**
@@ -77,65 +57,75 @@ public class Article {
 	}
 
 
+	/**
+	 * Returns the id of this article.
+	 */
 	public int getId () {
 		return id;
 	}
 
 
+	/**
+	 * Returns the name of this article.
+	 */
 	public String getName () {
 		return name;
 	}
 
 
-	private void setName (String name) {
-
-		if (name == null || name.isEmpty()) {
-			throw new IllegalArgumentException("name must be not null and not empty");
-		}
-
-		this.name = name;
-	}
-
-
-	public String getArmaClassName () {
-		return armaClassName;
-	}
-
-
-	private void setArmaClassName (String armaClassName) {
-
-		if (name == null || name.isEmpty()) {
-			throw new IllegalArgumentException("armaClassName must be not null and not empty");
-		}
-
-		this.armaClassName = armaClassName;
-	}
-
-
+	/**
+	 * Returns the price of this article.
+	 */
 	public int getPrice () {
 		return price;
 	}
 
 
-	private void setPrice (int price) {
-		this.price = price;
-	}
-
-
-	public int getMaxAmount () {
-		return -1;
+	/**
+	 * Returns the category of this article.
+	 */
+	public Category getCategory () {
+		return category;
 	}
 
 
 	/**
-	 * Returns the group of this article.
+	 * Returns the sides of this article.
 	 */
-	public Group getGroup () {
-		return group;
+	public List<Side> getSides () {
+		return sides;
 	}
 
 
-	public String getFactoryFunction () {
-		return factoryFunction;
+	@Override
+	public boolean equals (Object o) {
+
+		if (o == null) {
+			return false;
+		}
+
+		if (this == o) {
+			return true;
+		}
+
+		if (!(o instanceof Article)) {
+			return false;
+		}
+
+
+		Article article = (Article) o;
+		return getId() == article.getId();
+	}
+
+
+	@Override
+	public int hashCode () {
+		return getId();
+	}
+
+
+	@Override
+	public String toString () {
+		return String.format("%s{id=%d, name=%s}", Article.class.getSimpleName(), getId(), getName());
 	}
 }
