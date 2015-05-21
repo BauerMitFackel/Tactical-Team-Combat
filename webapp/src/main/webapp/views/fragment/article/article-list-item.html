@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+
+
+
+<div th:fragment="read-only">
+
+	<div class="article-list-item">
+
+		<!-- Name -->
+		<div class="col-xs-8 col-sm-6 col-md-6">
+			<h5 th:text="${article.name}">Name</h5>
+		</div>
+
+		<!-- Category -->
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<span th:text="${article.item.category.name}">Category</span>
+		</div>
+
+		<!-- Factions -->
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<span class="label label-default"
+			      th:each="faction : ${article.item.factions}"
+			      th:text="${faction.acronym}">Faction</span>
+		</div>
+
+		<!-- Price -->
+		<div class="col-xs-4 col-sm-2 col-md-2 text-right">
+			<span th:text="${article.price} + ' BTC'">Price</span>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<div th:fragment="edit">
+
+	<div class="article-list-item">
+
+		<input type="hidden"
+		       name="articles-url"
+		       th:value="@{/game/role/} + ${role.id} + '/articles'"/>
+
+		<input type="hidden"
+		       name="item-id"
+		       th:value="${item.id}"/>
+
+		<div class="col-xs-1 col-sm-1 col-md-1">
+			<div class="checkbox checkbox-primary">
+				<input class="article-list-item-checkbox"
+				       type="checkbox"
+				       th:id="'item-checkbox-' + ${item.id}"
+				       th:name="items"
+				       th:value="${item.id}"
+				       th:checked="${article != null}"/>
+				<label></label>
+			</div>
+		</div>
+
+		<!-- Name -->
+		<div class="col-xs-8 col-sm-6 col-md-4">
+			<h5 th:text="${item.name}">Name</h5>
+		</div>
+
+		<!-- Category -->
+		<div class="hidden-xs col-sm-3 col-md-2">
+			<span th:text="${item.category.name}">Category</span>
+		</div>
+
+		<!-- Factions -->
+		<div class="hidden-xs col-sm-3 col-md-2">
+			<span class="label label-default"
+			      th:each="faction : ${item.factions}"
+			      th:text="${faction.acronym}">Faction</span>
+		</div>
+
+		<!-- Price -->
+		<div class="col-xs-4 col-sm-3 col-md-2 text-right">
+			<span th:text="${item.price} + ' BTC'">Price</span>
+		</div>
+
+		<!-- Discount -->
+		<div class="hidden-xs col-sm-3 col-md-1 inherit-height no-padding">
+
+			<input th:if="${article != null}"
+			       th:value="${article.discount}"
+			       name="discount"
+			       type="text"
+			       class="form-control text-right article-list-item-discount"/>
+
+		</div>
+
+	</div>
+
+</div>
+
+</body>
+
+
+</html>

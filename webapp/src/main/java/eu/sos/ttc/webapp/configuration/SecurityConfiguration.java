@@ -40,7 +40,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/resources/**").permitAll()
 			.antMatchers("/").permitAll()
+			.antMatchers("/login").permitAll()
 			.antMatchers("/signup").permitAll()
+			.antMatchers(HttpMethod.GET, "/game/factions").permitAll()
+			.antMatchers(HttpMethod.GET, "/game/factions/*/flag").permitAll()
+			.antMatchers(HttpMethod.GET, "/game/shop").permitAll()
+			.antMatchers(HttpMethod.GET, "/game/item/*").permitAll()
+			.antMatchers(HttpMethod.GET, "/game/role/*").permitAll()
 			.anyRequest().authenticated();
 
 		http.formLogin()

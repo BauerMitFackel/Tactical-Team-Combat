@@ -30,7 +30,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories("eu.sos.ttc.core")
-@PropertySource("classpath:persistence.properties")
+@PropertySource("classpath:persistence-dedicated.properties")
 public class PersistenceConfiguration {
 
 

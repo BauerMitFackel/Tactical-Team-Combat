@@ -1,0 +1,25 @@
+/////////////////////////////////////////////
+//// Auto generated code. DO NOT MODIFY! ////
+/////////////////////////////////////////////
+
+
+/*
+  Article variables.
+  Name:  TTC_SHOP_article_<Class>
+  Data:  [id, class, price]
+*/
+#foreach( $article in $articles )
+TTC_SHOP_article_$article.armaClass = [$article.id, "$article.armaClass", $article.price] call $article.factoryFunction;
+#end
+
+
+/*
+  Article array containing all articles.
+  The articles are ordered by id
+*/
+TTC_SHOP_articles = [
+#foreach( $article in $articles )
+  TTC_SHOP_article_$article.armaClass#if( $foreach.hasNext ),#end
+
+#end
+];

@@ -1,4 +1,5 @@
-*persistence.properties
+*persistence-dedicated.properties
+*persistence-local.properties
 *.class
 
 # Mobile Tools for Java (J2ME)

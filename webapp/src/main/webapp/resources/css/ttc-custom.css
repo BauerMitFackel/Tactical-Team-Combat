@@ -1,47 +1,106 @@
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
+.no-margin {
+    margin: 0px;
 }
 
-.label-success-inverse {
-    background-color: #ffffff;
-    color: #2ecc71;
+.no-padding {
+    padding: 0px;
 }
 
-body {
-	padding-top: 60px;
-}
-
-.container {
+.spacer-top {
     margin-top: 20px;
 }
 
+.row-title {
+    text-transform: uppercase;
+    color: #a8a8a8;
+    margin: 0px 0px 5px 8px;
+}
+
+
+.jumbotron-bg {
+  background:   url(../img/jumbotron/jumbotron-bg-1.png) no-repeat center center;
+  position:     fixed;
+  width:        100%;
+  height:       500px;
+  top:          60px;
+  left:         0;
+  z-index:      -1;
+}
+
 .jumbotron {
-    background: url(../img/jumbotron-bg-2.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 500px;
+    background:transparent;
+    color: #ffffff;
+    height: 500px;
 }
 
 .jumbotron h1 {
-    color: #ffffff;
     font-weight: bold;
-    text-align: center;
+    letter-spacing:8px;
+    margin: 0px;
     text-transform: uppercase;
-    text-shadow: 0px 0px 10px #000000;
-}
-
-.jumbotron h3 {
-    color: #ffffff;
-    text-align: center;
-    text-transform: uppercase;
-    text-shadow: 0px 0px 5px #000000;
 }
 
 .jumbotron p {
-    color: #ffffff;
-    text-align: center;
-    text-shadow: 0px 0px 5px #000000;
+    letter-spacing:2px;
+    margin: 0px;
+}
+
+
+
+.inherit-height {
+    height: inherit;
+}
+
+
+
+
+
+
+
+
+.article-row {
+    height:                 50px;
+}
+
+
+
+.article-list-item {
+    height:                 40px;
+    display:                -webkit-box;
+    display:                -webkit-flex;
+    display:                -moz-box;
+    display:                -ms-flexbox;
+    display:                flex;
+    -webkit-flex-align:     center;
+    -ms-flex-align:         center;
+    -webkit-align-items:    center;
+    align-items:            center;
+}
+
+.article-list-item input {
+    border:                 none;
+    box-shadow:             none;
+    height:                 inherit;
+}
+
+.article-list-item input:focus {
+    background-color: yellow;
+}
+
+.article-list-header {
+
+    height:                 50px;
+    display:                -webkit-box;
+    display:                -webkit-flex;
+    display:                -moz-box;
+    display:                -ms-flexbox;
+    display:                flex;
+    -webkit-flex-align:     center;
+    -ms-flex-align:         center;
+    -webkit-align-items:    center;
+    align-items:            center;
+}
+
+.article-row > td .discount-cell {
+    padding: 0px;
 }

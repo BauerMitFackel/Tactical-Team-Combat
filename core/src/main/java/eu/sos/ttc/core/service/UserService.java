@@ -79,23 +79,6 @@ public class UserService {
 
 
 	/**
-	 * Updates the specified user.
-	 * <p>Use the returned instance for further operations as the update operation might have changed the user instance completely.</p>
-	 * @return The updated user instance, or {@code null} if an update is not possible
-	 */
-	public User update (User user) {
-
-		if (!repository.exists(user.getId())) {
-			String msg = String.format("%s{id=%d} not found", User.class.getSimpleName(), user.getId());
-			LOG.debug(msg);
-			return null;
-		}
-
-		return repository.save(user);
-	}
-
-
-	/**
 	 * Deletes the user with the specified id.
 	 */
 	public void delete (Long id) {
@@ -112,5 +95,22 @@ public class UserService {
 			String msg = String.format("%s{id=%d} deleted", User.class.getSimpleName(), id);
 			LOG.debug(msg);
 		}
+	}
+
+
+	/**
+	 * Updates the specified user.
+	 * <p>Use the returned instance for further operations as the update operation might have changed the user instance completely.</p>
+	 * @return The updated user instance, or {@code null} if an update is not possible
+	 */
+	public User update (User user) {
+
+		if (!repository.exists(user.getId())) {
+			String msg = String.format("%s{id=%d} not found", User.class.getSimpleName(), user.getId());
+			LOG.debug(msg);
+			return null;
+		}
+
+		return repository.save(user);
 	}
 }

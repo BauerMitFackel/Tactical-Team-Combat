@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+
+
+<div th:fragment="read-only">
+
+	<div class="article-list-header">
+
+		<!-- Name -->
+		<div class="col-xs-8 col-sm-6 col-md-6">
+			<h5><strong>Name</strong></h5>
+		</div>
+
+		<!-- Category -->
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<span><strong>Category</strong></span>
+		</div>
+
+		<!-- Factions -->
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<span><strong>Factions</strong></span>
+		</div>
+
+		<!-- Price -->
+		<div class="col-xs-4 col-sm-2 col-md-2 text-right">
+			<span><strong>Price</strong></span>
+		</div>
+
+	</div>
+
+</div>
+
+
+<div th:fragment="edit">
+
+	<div class="article-list-header">
+
+		<div class="col-xs-1 col-sm-1 col-md-1">
+			<span><strong>Available</strong></span>
+		</div>
+
+		<!-- Name -->
+		<div class="col-xs-8 col-sm-6 col-md-4">
+			<h5><strong>Name</strong></h5>
+		</div>
+
+		<!-- Category -->
+		<div class="hidden-xs col-sm-3 col-md-2">
+			<span><strong>Category</strong></span>
+		</div>
+
+		<!-- Factions -->
+		<div class="hidden-xs col-sm-3 col-md-2">
+			<span><strong>Factions</strong></span>
+		</div>
+
+		<!-- Price -->
+		<div class="col-xs-4 col-sm-3 col-md-2 text-right">
+			<span><strong>Price</strong></span>
+		</div>
+
+		<!-- Discount -->
+		<div class="hidden-xs col-sm-3 col-md-1 text-right">
+			<span><strong>Discount</strong></span>
+		</div>
+
+	</div>
+
+</div>
+
+
+</body>
+
+
+</html>

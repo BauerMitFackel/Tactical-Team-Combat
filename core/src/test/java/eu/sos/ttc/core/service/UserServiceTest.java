@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import eu.sos.ttc.core.configuration.CoreConfiguration;
 import eu.sos.ttc.core.configuration.PersistenceConfiguration;
-import eu.sos.ttc.core.domain.Article;
 import eu.sos.ttc.core.domain.User;
 
 import static org.junit.Assert.assertEquals;
@@ -22,6 +19,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
+/**
+ * Test class for the {@link eu.sos.ttc.core.service.UserService}
+ * @author BauerMitFackel
+ * @see eu.sos.ttc.core.service.UserService
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
 		CoreConfiguration.class,
@@ -38,16 +40,16 @@ public class UserServiceTest {
 	@Test
 	public void testGetById () {
 
-		User user = userService.getById(5L);
+		User user = userService.getById(1L);
 		assertNotNull(user);
-		assertEquals(5L, user.getId());
+		assertEquals(1L, user.getId());
 	}
 
 
 	@Test
 	public void testGetByEmail () {
 
-		String email = "bauermitfackel@gmail.com";
+		String email = "john@doe.de";
 
 		User user = userService.getByEmail(email);
 		assertNotNull(user);
@@ -57,18 +59,6 @@ public class UserServiceTest {
 
 	@Test
 	public void testCreate () {
-
-		String name = "John Doe";
-		String email = "john.doe@test.com";
-		String password = "changeit";
-
-		/*
-		User user = userService.create(name, email, password);
-
-		assertNotNull(user);
-		assertEquals(name, user.getName());
-		assertEquals(email, user.getEmail());
-		assertNotEquals(password, user.getPassword());
-		*/
+		// TODO: Implement
 	}
 }

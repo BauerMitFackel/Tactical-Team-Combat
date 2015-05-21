@@ -2,28 +2,38 @@ package eu.sos.ttc.webapp.controller.game;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import eu.sos.ttc.core.domain.Article;
-import eu.sos.ttc.core.domain.Category;
-import eu.sos.ttc.core.domain.Role;
-import eu.sos.ttc.core.domain.Side;
+
+import eu.sos.ttc.core.domain.arma.Article;
+import eu.sos.ttc.core.domain.arma.Category;
+import eu.sos.ttc.core.domain.arma.Item;
+import eu.sos.ttc.core.domain.arma.Role;
 import eu.sos.ttc.core.domain.User;
-import eu.sos.ttc.core.service.ArticleService;
-import eu.sos.ttc.core.service.CategoryService;
-import eu.sos.ttc.core.service.RoleService;
-import eu.sos.ttc.core.service.SideService;
+
+import eu.sos.ttc.core.service.arma.ArticleService;
+import eu.sos.ttc.core.service.arma.CategoryService;
+import eu.sos.ttc.core.service.arma.ItemService;
+import eu.sos.ttc.core.service.arma.RoleService;
+import eu.sos.ttc.core.service.arma.FactionService;
 import eu.sos.ttc.core.service.UserService;
-import eu.sos.ttc.webapp.exception.UserNotFoundException;
+import eu.sos.ttc.webapp.controller.BaseController;
+import eu.sos.ttc.webapp.exception.ArticleNotFoundException;
+import eu.sos.ttc.webapp.exception.ForbiddenException;
 
 
 /**
@@ -31,7 +41,7 @@ import eu.sos.ttc.webapp.exception.UserNotFoundException;
  * @author BauerMitFackel
  */
 @Controller
-public class RoleController {
+public class RoleController extends BaseController {
 
 
 	@Autowired
@@ -44,37 +54,33 @@ public class RoleController {
 	private RoleService roleService;
 
 	@Autowired
-	private SideService sideService;
+	private FactionService sideService;
 
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private ItemService itemService;
 
-	@RequestMapping(value = {"/roles"}, method = RequestMethod.GET)
-	public String onGetRoles (Principal principal, Model model) {
 
-		User user = getUser(principal);
-		model.addAttribute("user", user);
+	@RequestMapping(value = {"/game/role/{id}"}, method = RequestMethod.DELETE)
+	public String onDeleteRole (Principal principal, @PathVariable int id) {
 
-		Side west = sideService.getById(SideService.SIDE_ID_WEST);
-		List<Role> rolesWest = roleService.getBySide(west);
-		model.addAttribute("rolesWest", rolesWest);
-		Side guer = sideService.getById(SideService.SIDE_ID_GUER);
-		List<Role> rolesGuer = roleService.getBySide(guer);
-		model.addAttribute("rolesGuer", rolesGuer);
+		Role role = roleService.getById(id);
+		roleService.delete(role);
 
-		return "/roles";
+		return "redirect:/game/factions";
 	}
 
 
-	@RequestMapping(value = {"/role/{id}"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/game/role/{id}"}, method = RequestMethod.GET)
 	public String onGetRole (Principal principal, @PathVariable int id, Model model) {
 
-		User user = getUser(principal);
-		model.addAttribute("user", user);
+		if (principal != null) {
+			User user = getUser(principal);
+			model.addAttribute("user", user);
+		}
 
-		List<Article> articles = articleService.getAll();
-		model.addAttribute("articles", articles);
 		List<Category> categories = categoryService.getRootCategories();
 		model.addAttribute("categories", categories);
 		Role role = roleService.getById(id);
@@ -84,7 +90,7 @@ public class RoleController {
 	}
 
 
-	@RequestMapping(value = {"/role/{id}"}, method = RequestMethod.PATCH)
+	@RequestMapping(value = {"/game/role/{id}"}, method = RequestMethod.PATCH)
 	public String onPatchRole (Principal principal, @PathVariable int id, @RequestParam("name") String name, @RequestParam("description") String description) {
 
 		Role role = roleService.getById(id);
@@ -92,38 +98,8 @@ public class RoleController {
 		role.setDescription(description);
 
 		roleService.update(role);
-		return "redirect:/role/" + id;
+		return "redirect:/game/role/" + id;
 	}
 
 
-	@RequestMapping(value = {"/role/{id}/articles"}, method = RequestMethod.POST)
-	public String onPostArticles (Principal principal, @PathVariable int id, @RequestParam(value = "articles", required = true) List<Integer> articleIds) {
-
-		Role role = roleService.getById(id);
-
-		List<Article> articles = new ArrayList<>(articleIds.size());
-		for (int articleId : articleIds) {
-			Article article = articleService.getById(articleId);
-			articles.add(article);
-		}
-
-		role.setArticles(articles);
-		roleService.update(role);
-		return "redirect:/role/" + id;
-	}
-
-
-	private User getUser (Principal principal) {
-
-		// Principal name is email address
-		String email = principal.getName();
-
-		// Get user -> return 404 NOT FOUND if null
-		User user = userService.getByEmail(email);
-		if (user == null) {
-			throw new UserNotFoundException();
-		}
-
-		return user;
-	}
 }
