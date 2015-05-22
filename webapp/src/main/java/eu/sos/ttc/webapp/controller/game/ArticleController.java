@@ -115,6 +115,10 @@ public class ArticleController extends BaseController {
 		if (article != null) {
 			int discount = Integer.valueOf(body.get("discount").toString());
 			article.setDiscount(discount);
+
+			boolean availableAtSectors = Boolean.valueOf(body.get("availableAtSectors").toString());
+			article.setAvailableAtSectors(availableAtSectors);
+
 			articleService.save(article);
 		} else {
 			throw new ArticleNotFoundException();

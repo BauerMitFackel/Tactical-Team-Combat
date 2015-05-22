@@ -51,6 +51,7 @@
 		       name="item-id"
 		       th:value="${item.id}"/>
 
+		<!-- Available -->
 		<div class="col-xs-1 col-sm-1 col-md-1">
 			<div class="checkbox checkbox-primary">
 				<input class="article-list-item-checkbox"
@@ -94,6 +95,19 @@
 			       type="text"
 			       class="form-control text-right article-list-item-discount"/>
 
+		</div>
+
+		<!-- Available at sectors -->
+		<div class="col-xs-1 col-sm-1 col-md-1">
+			<div class="checkbox checkbox-primary">
+				<input class="article-list-item-checkbox-availableAtSectors"
+					   type="checkbox"
+					   th:id="'item-checkbox-availableAtSectors-' + ${item.id}"
+					   th:name="items"
+					   th:value="${item.id}"
+					   th:checked="${article != null}"/>
+				<label></label>
+			</div>
 		</div>
 
 	</div>

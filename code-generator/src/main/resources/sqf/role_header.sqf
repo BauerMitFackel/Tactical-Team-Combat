@@ -1,31 +1,31 @@
-TTC_SHOP_ARTICLE_id				= 0;
-TTC_SHOP_ARTICLE_name			= 1;
-TTC_SHOP_ARTICLE_price			= 2;
-TTC_SHOP_ARTICLE_displayName	= 3;
-TTC_SHOP_ARTICLE_description	= 4;
-TTC_SHOP_ARTICLE_picture		= 5;
-TTC_SHOP_ARTICLE_maxAmount		= 6;
+TTC_SHOP_ARTICLE_id					= 0;
+TTC_SHOP_ARTICLE_name				= 1;
+TTC_SHOP_ARTICLE_price				= 2;
+TTC_SHOP_ARTICLE_availableAtSectors	= 3;
+TTC_SHOP_ARTICLE_displayName		= 4;
+TTC_SHOP_ARTICLE_description		= 5;
+TTC_SHOP_ARTICLE_picture			= 6;
 
-TTC_SHOP_CATEGORY_id			= 0;
-TTC_SHOP_CATEGORY_name			= 1;
-TTC_SHOP_CATEGORY_icon			= 2;
-TTC_SHOP_CATEGORY_articles		= 3;
+TTC_SHOP_CATEGORY_id				= 0;
+TTC_SHOP_CATEGORY_name				= 1;
+TTC_SHOP_CATEGORY_icon				= 2;
+TTC_SHOP_CATEGORY_articles			= 3;
 
 
 _getArticle = {
 
-	private["_id","_name","_maxAmount","_price","_config","_descriptionShort","_descriptionLong","_descriptionUse","_displayName","_picture","_description","_data"];
+	private["_id","_name","_price","_config","_availableAtSectors","_descriptionShort","_descriptionLong","_descriptionUse","_displayName","_picture","_description","_data"];
 
 	_id					= [_this, 0] call BIS_fnc_param;
 	_name				= [_this, 1] call BIS_fnc_param;
-	_maxAmount			= [_this, 2] call BIS_fnc_param;
 	_price				= [_this, 3] call BIS_fnc_param;
 	_config				= [_this, 4] call BIS_fnc_param;
-	_descriptionShort	= [_this, 5, (getText(configFile >> _config >> _name >> "descriptionShort")), [""]] call BIS_fnc_param;
-	_descriptionLong	= [_this, 6, "", [""]] call BIS_fnc_param;
-	_descriptionUse		= [_this, 7, (getText(configFile >> _config >> _name >> "descriptionUse")), [""]] call BIS_fnc_param;
-	_displayName		= [_this, 8, (getText(configFile >> _config >> _name >> "displayName")), [""]] call BIS_fnc_param;
-	_picture			= [_this, 9, (getText(configFile >> _config >> _name >> "picture")), [""]] call BIS_fnc_param;
+	_availableAtSectors	= [_this, 5] call BIS_fnc_param;
+	_descriptionShort	= [_this, 6, (getText(configFile >> _config >> _name >> "descriptionShort")), [""]] call BIS_fnc_param;
+	_descriptionLong	= [_this, 7, "", [""]] call BIS_fnc_param;
+	_descriptionUse		= [_this, 8, (getText(configFile >> _config >> _name >> "descriptionUse")), [""]] call BIS_fnc_param;
+	_displayName		= [_this, 9, (getText(configFile >> _config >> _name >> "displayName")), [""]] call BIS_fnc_param;
+	_picture			= [_this, 10, (getText(configFile >> _config >> _name >> "picture")), [""]] call BIS_fnc_param;
 
 	_description = "";
 
@@ -52,8 +52,8 @@ _getArticle = {
 	_data = [];
 	_data set [TTC_SHOP_ARTICLE_id, _id];
 	_data set [TTC_SHOP_ARTICLE_name, _name];
-	_data set [TTC_SHOP_ARTICLE_maxAmount, _maxAmount];
 	_data set [TTC_SHOP_ARTICLE_price, _price];
+	_data set [TTC_SHOP_ARTICLE_availableAtSectors, _availableAtSectors];
 	_data set [TTC_SHOP_ARTICLE_displayName, _displayName];
 	_data set [TTC_SHOP_ARTICLE_description, _description];
 	_data set [TTC_SHOP_ARTICLE_picture, _picture];
@@ -61,7 +61,6 @@ _getArticle = {
 };
 
 _getCapacity = {
-
 	private ["_name","_container","_capacity"];
 
 	_name	    = [_this, 0] call BIS_fnc_param;
@@ -72,7 +71,6 @@ _getCapacity = {
 };
 
 _getWeapon = {
-
 	private ["_name","_text"];
 
 	_name   = [_this, 1] call BIS_fnc_param;
@@ -95,7 +93,6 @@ _getGlasses = {
 };
 
 _countVehicleSeats = {
-
 	private ["_name","_hasDriver","_transport","_seats","_turrets","_class","_hasGunner"];
 
 	_name	    = [_this, 0] call BIS_fnc_param;
@@ -118,7 +115,6 @@ _countVehicleSeats = {
 };
 
 _getUniform = {
-
 	private ["_name","_mass","_capacity","_description"];
 
 	_name	        = [_this, 1] call BIS_fnc_param;
@@ -130,7 +126,6 @@ _getUniform = {
 };
 
 _getVest = {
-
 	private ["_name","_mass","_capacity","_armor","_description"];
 
 	_name	        = [_this, 1] call BIS_fnc_param;
@@ -143,7 +138,6 @@ _getVest = {
 };
 
 _getBackpack = {
-
 	private ["_name","_mass","_capacity","_description"];
 
 	_name	        = [_this, 1] call BIS_fnc_param;
@@ -155,7 +149,6 @@ _getBackpack = {
 };
 
 _getVehicle = {
-
 	private ["_name","_capacity","_armor","_seats","_maxSpeed","_text","_description"];
 
 	_name	        = [_this, 1] call BIS_fnc_param;
@@ -169,9 +162,7 @@ _getVehicle = {
 	(_this + ["CfgVehicles", _description]) call _getArticle;
 };
 
-
 _getUGV = {
-
 	private ["_name","_capacity","_armor","_hasDriver","_maxSpeed","_text","_description"];
 
 	_name	        = [_this, 1] call BIS_fnc_param;
@@ -186,7 +177,6 @@ _getUGV = {
 };
 
 _getUAV = {
-
 	private ["_name","_capacity","_armor","_maxSpeed","_text","_description"];
 
 	_name	        = [_this, 1] call BIS_fnc_param;

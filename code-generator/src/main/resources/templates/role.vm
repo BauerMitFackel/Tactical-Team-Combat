@@ -9,16 +9,16 @@ $header
 /*
   Article constants.
   Name:  TTC_SHOP_ARTICLE_<Class>
-  Data:  [id, class, maxAmount, price]
+  Data:  [id, class, price, availableAtSectors]
 */
 #foreach( $article in $articles )
-TTC_SHOP_ARTICLE_$article.className = [$article.id, "$article.className", 0, $article.price] call $article.factoryFunction;
+TTC_SHOP_ARTICLE_$article.className = [$article.id, "$article.className", $article.price, $article.availableAtSectors] call $article.factoryFunction;
 #end
 
 
 /*
-  Article array containing all articles.
-  The articles are ordered by id
+  Array containing all articles.
+  The articles are ordered by id.
 */
 TTC_SHOP_ARTICLES = [
 #foreach( $article in $articles )
@@ -27,7 +27,9 @@ TTC_SHOP_ARTICLES = [
 #end
 ];
 
-
+/*
+  Category arrays containing the according articles.
+*/
 #foreach( $category in $categories )
 TTC_SHOP_$category.name.toUpperCase() = [
 #foreach( $article in $category.articles )
@@ -40,8 +42,8 @@ TTC_SHOP_$category.name.toUpperCase() = [
 
 
 /*
-	Array containing all categories
-	Must be sorted. The order is used in the category list
+	Array containing all categories.
+	Must be sorted. The order is used in the category list.
 */
 TTC_SHOP_CATEGORIES = [
 #foreach( $category in $categories )

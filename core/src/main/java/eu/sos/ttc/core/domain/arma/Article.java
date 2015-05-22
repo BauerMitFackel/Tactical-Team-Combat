@@ -40,15 +40,19 @@ public class Article {
 	@Column(name = "discount", unique = false, nullable = false)
 	private int discount = 0;
 
+	@Column(name = "available_at_sectors", unique = false, nullable = false)
+	private boolean availableAtSectors = false;
+
 
 	/**
 	 * Creates a new article instance using the given role and item.
 	 * The price change will be set to 0.
+	 * The article won't be available at the sector shops.
 	 * @param role The role assigned to the article
 	 * @param item the item assigned to the article
 	 */
 	public static Article create (Role role, Item item) {
-		return create(role, item, 0);
+		return create(role, item, 0, false);
 	}
 
 
@@ -58,12 +62,13 @@ public class Article {
 	 * @param item The item assigned to the article
 	 * @param priceChange The price change applied to the item price
 	 */
-	public static Article create (Role role, Item item, int priceChange) {
+	public static Article create (Role role, Item item, int priceChange, boolean availableAtSectors) {
 
 		Article article = new Article();
 		article.setRoleId(role.getId());
 		article.setItemId(item.getId());
 		article.setDiscount(priceChange);
+		article.setAvailableAtSectors(availableAtSectors);
 
 		return article;
 	}
@@ -114,6 +119,16 @@ public class Article {
 
 	public void setDiscount (int discount) {
 		this.discount = discount;
+	}
+
+
+	public boolean getAvailableAtSectors() {
+		return availableAtSectors;
+	}
+
+
+	public void setAvailableAtSectors(boolean availableAtSectors) {
+		this.availableAtSectors = availableAtSectors;
 	}
 
 
