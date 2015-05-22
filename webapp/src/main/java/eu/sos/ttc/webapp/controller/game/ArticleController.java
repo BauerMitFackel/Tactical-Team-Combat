@@ -113,11 +113,16 @@ public class ArticleController extends BaseController {
 
 		Article article = articleService.getById(Article.Id.create(roleId, itemId));
 		if (article != null) {
-			int discount = Integer.valueOf(body.get("discount").toString());
-			article.setDiscount(discount);
 
-			boolean availableAtSectors = Boolean.valueOf(body.get("availableAtSectors").toString());
-			article.setAvailableAtSectors(availableAtSectors);
+			if (body.containsKey("discount")) {
+				int discount = Integer.valueOf(body.get("discount").toString());
+				article.setDiscount(discount);
+			}
+
+			if (body.containsKey("availableAtSectors")) {
+				boolean availableAtSectors = Boolean.valueOf(body.get("availableAtSectors").toString());
+				article.setAvailableAtSectors(availableAtSectors);
+			}
 
 			articleService.save(article);
 		} else {

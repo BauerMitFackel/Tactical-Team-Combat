@@ -122,7 +122,7 @@ public class Article {
 	}
 
 
-	public boolean getAvailableAtSectors() {
+	public boolean isAvailableAtSectors () {
 		return availableAtSectors;
 	}
 

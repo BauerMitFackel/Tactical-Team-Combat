@@ -6,6 +6,7 @@ $(document).ready(function() {
 
     $(document).on("change", ".article-list-item-checkbox", onArticleListItemCheckboxChanged);
     $(document).on("change", ".article-list-item-discount", onArticleListItemDiscountChanged);
+    $(document).on("change", ".article-list-item-checkbox-availableAtSectors", onArticleAvailableAtSectorsChanged);
 
     function onArticleListItemCheckboxChanged () {
 
@@ -73,4 +74,32 @@ $(document).ready(function() {
             }
         });
     }
+
+
+    function onArticleAvailableAtSectorsChanged () {
+
+            var articleListItem = $(this).closest(".article-list-item");
+
+            var url = $(articleListItem).find("input[name='articles-url']").val();
+            var itemId = $(articleListItem).find("input[name='item-id']").val();
+            var availableAtSectors = this.checked
+
+            url = url + "/" + itemId;
+
+            var data = {
+                availableAtSectors: availableAtSectors
+            }
+
+            $.ajax({
+                type: "PATCH",
+                contentType: "application/json; charset=utf-8",
+                url: url,
+                data: JSON.stringify(data),
+                success: function (data, status) {
+                },
+                error: function (status) {
+                    alert("Cant update discount");
+                }
+            });
+        }
 });

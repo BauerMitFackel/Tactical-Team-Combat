@@ -100,12 +100,13 @@
 		<!-- Available at sectors -->
 		<div class="col-xs-1 col-sm-1 col-md-1">
 			<div class="checkbox checkbox-primary">
-				<input class="article-list-item-checkbox-availableAtSectors"
+				<input th:if="${article != null}"
+				       class="article-list-item-checkbox-availableAtSectors"
 					   type="checkbox"
 					   th:id="'item-checkbox-availableAtSectors-' + ${item.id}"
-					   th:name="items"
-					   th:value="${item.id}"
-					   th:checked="${article != null}"/>
+					   th:name="availableAtSectors"
+					   th:value="${article.availableAtSectors}"
+					   th:checked="${article.availableAtSectors}"/>
 				<label></label>
 			</div>
 		</div>
